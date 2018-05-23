@@ -15,9 +15,11 @@ public class MAS4 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // Car a = new Car(90, 1223);
-        Car b = new Car("opel", 30, "12345678912345678");
-        Car c = new Car("mazda", 40, "123");
+
+        // Car opel = new Car("opel", 30, "11123", 2000);
+        // Car mazda = new Car("mazda", 30, "11123",10);
+        Car toyota = new Car("toyota", 40, "ADD1231422313AaSA", 5000);
+        toyota.setKilometrage(1500);
     }
 
 }

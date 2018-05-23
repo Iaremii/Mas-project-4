@@ -9,15 +9,17 @@ import java.util.ArrayList;
 public class Car {
 
     private String model;
-    private int speed;                                                  //dotyczace atrybuta
+    private int speed;                                                  //statyczny
+    private int kilometrage;                                            //dynamiczny
     private String vinNumber;                                           //Unique
     private final static int MAXSPEED = 80;
     private static ArrayList<Car> vinNumbers = new ArrayList<>();
 
-    public Car(String model, int speed, String vinNumber) {
+    public Car(String model, int speed, String vinNumber, int kilometrage) {
         setModel(model);
         setSpeed(speed);
         setVinNumber(vinNumber);
+        setKilometrage(kilometrage);
         vinNumbers.add(this);
     }
 
@@ -38,16 +40,27 @@ public class Car {
     }
 
     public void setVinNumber(String VINnumber) {
-        if (vinNumber == null) {
+        if (VINnumber == null) {
             throw new IllegalArgumentException("Number can't be null");
         }
         if (checkDublicate(VINnumber)) {
             throw new IllegalArgumentException("Yhis number : " + VINnumber + " exists already");
-        } else if (!VINnumber.matches("\\d{17}")) {
+        } else if (!VINnumber.matches("^[A-Z]{3}[0-5]{10}[a-zA-Z]{4}")) {
             throw new RuntimeException("Bad format");
         }
         this.vinNumber = VINnumber;
 
+    }
+
+    public void setKilometrage(int kilometrage) {
+        if (kilometrage < this.kilometrage) {
+            throw new IllegalArgumentException("Mileage can't decrease");
+        }
+        this.kilometrage = kilometrage;
+    }
+
+    public int getKilometrage() {
+        return kilometrage;
     }
 
     public ArrayList<Car> getVinNumbers() {
@@ -74,7 +87,7 @@ public class Car {
     public boolean checkDublicate(String VinNumber) {
 
         for (Car car : vinNumbers) {
-            if (car.getVinNumber() == VinNumber) {
+            if (car.getVinNumber().equals(VinNumber)) {
                 return true;
             }
         }
